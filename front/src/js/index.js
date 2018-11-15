@@ -13,6 +13,7 @@
 // console.log(banner.persion);
 
 function Banner() {
+    this.bannerWitdh = 798;
     this.bannerGroup = $('#banner-group');//获取标签对象
     this.index = 0;//初始化轮播图编号
     this.leftArrow = $('.left-arrow');//轮播图左箭头
@@ -20,14 +21,33 @@ function Banner() {
     this.bannerUL = $('#banner-ul');//获取标签
     this.liList = this.bannerUL.children('li');//获取li标签对象
     this.bannerCount = this.liList.length;//获取li标签个数
-    this.listenBannerHover();//监听轮播图鼠标事件
-
+    this.pageControl = $('.page-control');
 }
+
+Banner.prototype.initBanner = function () {
+    var self = this;// 动态更改小圆点标签宽度
+    this.bannerUL.css({'width':self.bannerWitdh*self.bannerCount});
+
+};
+
+Banner.prototype.initPageControl = function () {
+    var self = this;// 动态修改小圆点个数＝＝轮播图个数
+    //var pageControl = $('.page-control');
+    for(var i = 0; i < self.bannerCount; i++){
+        var circle = $('<li></li>');
+        self.pageControl.append(circle);
+        if(i === 0){
+            circle.addClass('active');
+        }
+    }
+    self.pageControl.css({'width':self.bannerCount*12+8*2+16*(self.bannerCount-1)})
+};// 动态修改小圆点外部div总宽度
 
 Banner.prototype.animate = function () {
     //封装通用函数 - 轮播图
     var self = this;
-    self.bannerUL.animate({'left':-798*self.index},500);
+    self.bannerUL.animate({'left':-798*self.index},500);　//　轮播
+    self.pageControl.children('li').eq(self.index).addClass('active').siblings().removeClass('active');// 动态找到所有的兄弟节点并移除class
 };
 
 Banner.prototype.toggleArrow = function (isShow) {
@@ -48,24 +68,6 @@ Banner.prototype.toggleArrow = function (isShow) {
     }
 };
 
-Banner.prototype.listenBannerHover = function () {
-    //监听鼠标移动到轮播图事件
-    var self = this;
-    this.bannerGroup.hover(function () {
-        console.log('鼠标移动,暂停播放...');
-        //第一个函数是把鼠标移动到banner上会执行的函数
-        // clearInterval(this.timer); 函数内的this对象指的是函数　不是Ｂanner对象
-        clearInterval(self.timer);//关闭定时器
-        self.toggleArrow(true);//显示轮播图左右箭头
-
-    },function () {
-        //第二个函数是把鼠标从banner移走会执行的函数
-        console.log('鼠标移走,开始播放...');
-        self.loop();
-        self.toggleArrow(false);//隐藏轮播图左右箭头
-    });
-};
-
 Banner.prototype.loop = function () {
     var self = this;
     // var bannerUL = $('#banner-ul');
@@ -74,7 +76,7 @@ Banner.prototype.loop = function () {
     // bannerUL.animate({'left':-798},500);//修改css提供过度效果
      this.timer = setInterval(function () {
         //定时器功能
-        if (self.index >= 3){
+        if (self.index >= self.bannerCount-1){
             self.index = 0;
         }else{
             self.index++;
@@ -105,10 +107,46 @@ Banner.prototype.listenArrowClick = function () {
     });
 };
 
+Banner.prototype.listenBannerHover = function () {
+    //监听鼠标移动到轮播图事件
+    var self = this;
+    this.bannerGroup.hover(function () {
+        console.log('鼠标移动,暂停播放...');
+        //第一个函数是把鼠标移动到banner上会执行的函数
+        // clearInterval(this.timer); 函数内的this对象指的是函数　不是Ｂanner对象
+        clearInterval(self.timer);//关闭定时器
+        self.toggleArrow(true);//显示轮播图左右箭头
+
+    },function () {
+        //第二个函数是把鼠标从banner移走会执行的函数
+        console.log('鼠标移走,开始播放...');
+        self.loop();
+        self.toggleArrow(false);//隐藏轮播图左右箭头
+    });
+};
+
+Banner.prototype.listenPageControl = function () {
+    // 监听li标签
+    var self = this;
+    self.pageControl.children('li').each(function (index,obj) {
+        // console.log(index);　标签下标值
+        // console.log(obj);　li标签
+        $(obj).click(function () {
+            self.index = index;
+            self.animate();
+            // $(obj).addClass('active').siblings().removeClass('active');// 找到所有的兄弟节点并移除class
+        });
+    });
+};
+
 Banner.prototype.run = function () {
     console.log('runing...........');
+    this.initBanner();
+    this.initPageControl();
     this.loop();
     this.listenArrowClick();
+    this.listenBannerHover();//监听轮播图鼠标事件
+    this.listenPageControl();
 };
 
 $(function () {

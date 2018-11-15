@@ -13,6 +13,7 @@ body{
     left: 0;
     top: 0;
     right: 0;
+    z-index: 100;
 
     .container{
         width: $pagewidth;
@@ -99,6 +100,8 @@ body{
             height: $bannerHeight;
             background: #5c87d9;
             position: relative;
+            overflow: hidden;
+            z-index: 0;
 
             .banner-ul{
                 overflow: hidden;
@@ -147,7 +150,7 @@ body{
                 .page-control{
                     margin: 0 auto;
                     overflow: hidden;
-                    width: 10*4px + 8*2px + 16*3px;
+                    //width: 10*4px + 8*2px + 16*3px;
 
                     li{
                         width: 10px;
@@ -157,6 +160,10 @@ body{
                         float: left;
                         box-sizing: border-box;
                         cursor: pointer;
+
+                        &.active{
+                            background: #ffffff;
+                        }
                     }
                 }
             }
