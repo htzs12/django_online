@@ -1,0 +1,75 @@
+@import '../common/init';
+@import "../common/constants";
+@import "../common/header";
+@import "../common/body";
+@import "../common/footer";
+@import "../course/course_nav";
+
+.main{
+    
+    .wrapper{
+        
+        .course-list{
+            margin-top: 20px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            
+            li{
+                width: 278px;
+                height: 280px;
+                background: white;
+                margin-bottom: 20px;
+                
+                .thumbnail-group{
+                    width: 100%;
+                    height: 158px;
+                    
+                    img{
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+                
+                .course-info{
+                    padding: 16px;
+                    width: 100%;
+                    box-sizing: border-box;
+                    height: 122px;
+                    position: relative;
+                    
+                    .title{
+                        color: #212121;
+                    }
+                    
+                    .author{
+                        margin-top: 10px;
+                        color: $assistFontColor;
+                        font-size: 14px;
+                    }
+                    
+                    .price-group{
+                        position: absolute;
+                        left: 16px;
+                        right: 16px;
+                        bottom: 16px;
+                        text-align: right;
+                    }
+                    
+                    .free{
+                        color: rgb(126,211,33);
+                    }
+                    
+                    .pay{
+                        color: rgb(245,74,74);
+                    }
+                }
+                
+                &:hover{
+                    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+                }
+            }
+        }
+    }
+}

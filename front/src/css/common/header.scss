@@ -1,0 +1,74 @@
+@import 'init';
+@import "constants";
+
+.header{
+    width: 100%;
+    height: 64px;
+    background: #3a3a3a;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 100;
+
+    .container{
+        width: $pageWidth;
+        height: 100%;
+        //background: yellowgreen;
+        margin: 0 auto;
+        overflow: hidden;
+
+        .logo-box{
+            width: 140px;
+            height: 54px;
+            background: url("
+            https://www.bufanbiz.com/static/build/images/logo.png");
+            background-repeat: no-repeat;
+            margin-top: 8px;
+            float: left;
+            a{
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .nav{
+            float: left;
+            margin-left: 128px;
+
+            li{
+                float: left;
+                margin-right: 40px;
+                line-height: $navHeight;
+                height: $navHeight;
+                box-sizing: border-box;
+
+                a{
+                    color: #ffffff;
+                }
+
+                &.active{
+                    border-bottom: 5px solid #5c87d9;//父标签-li
+                }
+            }
+        }
+
+        .auth-box{
+            float: right;
+            line-height: $navHeight;
+            height: $navHeight;
+            color: #ffffff;
+
+            a{
+                color: #ffffff;
+            }
+
+            .iconfont{
+                color: #ffffff;
+                font-size: 20px;
+            }
+
+        }
+    }
+}

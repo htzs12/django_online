@@ -15,7 +15,7 @@
 function Banner() {
     this.bannerWitdh = 798;
     this.bannerGroup = $('#banner-group');//获取标签对象
-    this.index = 0;//初始化轮播图编号
+    this.index = 1;//初始化轮播图编号
     this.leftArrow = $('.left-arrow');//轮播图左箭头
     this.rightArrow = $('.right-arrow');//轮播图右箭头
     this.bannerUL = $('#banner-ul');//获取标签
@@ -25,9 +25,14 @@ function Banner() {
 }
 
 Banner.prototype.initBanner = function () {
-    var self = this;// 动态更改小圆点标签宽度
-    this.bannerUL.css({'width':self.bannerWitdh*self.bannerCount});
+    var self = this;
 
+    var firstBanner = self.liList.eq(0).clone();
+    var lastBanner = self.liList.eq(self.bannerCount-1).clone();
+    self.bannerUL.append(firstBanner);// 添加到最后一个
+    self.bannerUL.prepend(lastBanner);// 添加到第一个
+    self.bannerUL.css({'width':self.bannerWitdh*(self.bannerCount+2),
+    'left':-self.bannerWitdh});// 动态更改小圆点标签宽度
 };
 
 Banner.prototype.initPageControl = function () {
@@ -46,8 +51,16 @@ Banner.prototype.initPageControl = function () {
 Banner.prototype.animate = function () {
     //封装通用函数 - 轮播图
     var self = this;
-    self.bannerUL.animate({'left':-798*self.index},500);　//　轮播
-    self.pageControl.children('li').eq(self.index).addClass('active').siblings().removeClass('active');// 动态找到所有的兄弟节点并移除class
+    self.bannerUL.stop().animate({'left':-798*self.index},500);　//　轮播
+    var index = self.index;
+    if(index === 0){
+        index = self.bannerCount-1;
+    }else if(index === self.bannerCount+1){
+        index = 0;
+    }else{
+        index = self.index-1;
+    }
+    self.pageControl.children('li').eq(index).addClass('active').siblings().removeClass('active');// 动态找到所有的兄弟节点并移除class
 };
 
 Banner.prototype.toggleArrow = function (isShow) {
@@ -76,8 +89,9 @@ Banner.prototype.loop = function () {
     // bannerUL.animate({'left':-798},500);//修改css提供过度效果
      this.timer = setInterval(function () {
         //定时器功能
-        if (self.index >= self.bannerCount-1){
-            self.index = 0;
+        if (self.index >= self.bannerCount+1){
+            self.bannerUL.css({'left':-self.bannerWitdh});
+            self.index = 2;
         }else{
             self.index++;
         }
@@ -91,6 +105,7 @@ Banner.prototype.listenArrowClick = function () {
     var self = this;
     self.leftArrow.click(function () {
         if(self.index === 0) {
+            self.bannerUL.css({'left':-self.bannerCount*self.bannerWitdh});
             self.index = self.bannerCount - 1;
         }else{
              self.index--;
@@ -98,8 +113,9 @@ Banner.prototype.listenArrowClick = function () {
         self.animate();
     });
     self.rightArrow.click(function () {
-       if(self.index === self.bannerCount -1){
-           self.index = 0;
+       if(self.index === self.bannerCount + 1){
+           self.bannerUL.css({'left':-self.bannerWitdh});
+           self.index = 2;
        }else{
            self.index++;
        }
