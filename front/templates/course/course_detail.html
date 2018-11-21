@@ -1,201 +1,143 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>在线课堂</title>
-    <link rel="stylesheet" href="../../dist/css/course/course_detail.min.css">
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_681895_q7ptjm0r8n.css">
-    <script src="../../dist/js/jquery-3.3.1.min.js"></script>
-</head>
-<body>
-<header class="header">
-    <div class="container">
-        <div class="logo-box">
-            <a href="/"></a>
-        </div>
-        <ul class="nav">
-            <li class="active"><a href="/">创业资讯</a></li>
-            <li><a href="/">创业课堂</a></li>
-            <li><a href="/">付费资讯</a></li>
-            <li><a href="/">搜索</a></li>
-        </ul>
+{% extends 'base/front_base.html' %}
+{% load staticfiles %}
 
-        <div class="auth-box">
-            <i class="icon-person iconfont"></i>
-            <a href="#">登录</a> /
-            <a href="#">注册</a>
-        </div>
-    </div>
-</header>
+{% block title %}课程详情{% endblock %}
 
-<div class="main">
-    <div class="course-nav">
-        <div class="nav-container">
-            <h3 class="title">在线课堂</h3>
-            <ul class="nav-list">
-                <li class="active"><a href="#">最新课堂</a></li>
-                <li><a href="#">投资人说</a></li>
-                <li><a href="#">明星案例</a></li>
-                <li><a href="#">创业知识</a></li>
-            </ul>
-        </div>
-    </div>
+{% block head %}
 
-    <div class="wrapper">
-        <div class="course-wrapper">
-            <div class="course-info">
-                <p class="course-title">对赌是什么　该不该做对赌</p>
-                <div class="price-group">
-                    <div class="share-group">
-                        <span class="title">分享至 : 微信 / 微博</span>
-                    </div>
-                    <div class="buy-group">
-                        <span class="price pay">$49.0</span>
-                        <a href="#" class="buy-btn">立即购买</a>
-                    </div>
-                </div>
-            </div>
-            <div class="video-group">
+    <link rel="stylesheet" href="{% static 'css/course/course_detail.min.css' %}">
 
-            </div>
-        </div>
-        <div class="bottom-wrapper">
-            <div class="course-detail-wrapper">
-                <div class="item-group">
-                    <p class="item-title">课程讲师</p>
-                    <div class="teacher-group">
-                        <div class="avatar-group">
-                            <img src="https://static-image.xfz.cn/1508120374_220.jpg" alt="">
-                        </div>
-                        <div class="teacher-info">
-                            <p class="teacher-name">知了课堂</p>
-                            <p class="teacher-desc">专业投资人；一线基金董事总经理</p>
-                        </div>
-                    </div>
-                    <p class="item-content">
-                        乔继英，专业投资人，一线基金董事总经理，十五年以上研发、市场销售、投资经验，投资领域覆盖天使投资、
-                        中早期风险投资、PE投资、并购、母基金FOF投资等领域。代表案例：华润凤凰（1515.HK）、微芯生物、二毛照护、九鼎美元基金等。
-                        个人间接投资摩拜单车、硅谷大数据公司Palantir等。曾在淡马锡祥峰投资、蓝驰创投、启迪创投等工作，世界五百强公司研发、市场销售主管。
-                        北京市高精尖产业基金评审组长、知名证券公司专业专家。清华大学本科、医学院博士、校友导师，曾与哈佛大学合作课题；香港中文大学金融MBA、客座讲师。
-                    </p>
-                </div>
-                <div class="item-group">
-                    <p class="item-title">课程简介</p>
-                    <p class="item-content">
-                        危机公关需要掌握好“度”——速度。
-                        添加微信号：onemoreholiday，免费完整课程。
-                    </p>
-                </div>
-                <div class="item-group">
-                    <p class="item-title">课程大纲</p>
-                    <p class="item-content">
-                        面对危机公关，多快算快？
-                        面对危机公关，谁出面做解释和声明最有效？
-                        案例分析：戴尔和罗永浩
-                        危机公关，真的是“唯快不破”吗？
-                    </p>
-                </div>
-                <div class="item-group">
-                    <p class="item-title">适应人群</p>
-                    <p class="item-content">
-                        乔继英，专业投资人，一线基金董事总经理，十五年以上研发、市场销售、投资经验，投资领域覆盖天使投资、 。代表案例：华润凤凰（1515.HK）、微芯生物、二毛照护、九鼎美元基金等。
-                        组长、知名证券公司专业专家。清华大学本科、医学院博士、校友导师，曾与哈佛大学合作课题；香港中文大学金融MBA、客座讲师。
-                    </p>
-                </div>
-                <div class="item-group">
-                    <p class="item-title">帮助中心</p>
-                    <p class="item-content">
-                        知名证券公司专业专家。清华大学本科、医学院博士、校友导师，曾与哈佛大学合作课题；香港中文大学金融MBA、客座讲师。
-                    </p>
-                </div>
-                <div class="item-group">
-                    <p class="item-title">关于课堂</p>
-                    <p class="item-content">
-                        乔继英，专业投资人，一线基金董事总经理，十五年以上研发、市场销售、投资经验，投资领域覆盖天使投资、
-                        知名证券公司专业专家。清华大学本科、医学院博士、校友导师，曾与哈佛大学合作课题；香港中文大学金融MBA、客座讲师。
-                    </p>
-                </div>
-            </div>
-            <div class="recommand-wrapper">
-                <p class="recommand-title">推荐课程</p>
-                <ul class="course-list">
-                    <li>
-                        <a href="#">
-                            <div class="course-info-group">
-                                <p class="course-title">
-                                    未来消费：如何把握潮水的方向
-                                </p>
-                                <p class="teacher">
-                                    知了课堂CEO
-                                </p>
-                            </div>
-                            <div class="thumbnail-group">
-                                <img src="https://static-image.xfz.cn/1534236783_765.png-course.list.small" alt="">
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <div class="course-info-group">
-                                <p class="course-title">
-                                    如何把握潮水的方向
-                                </p>
-                                <p class="teacher">
-                                    知了课堂CEO
-                                </p>
-                            </div>
-                            <div class="thumbnail-group">
-                                <img src="https://static-image.xfz.cn/1534236783_765.png-course.list.small" alt="">
-                            </div>
-                        </a>
-                    </li>
+{% endblock %}
+
+{% block main %}
+
+    <div class="main">
+        <div class="course-nav">
+            <div class="nav-container">
+                <h3 class="title">在线课堂</h3>
+                <ul class="nav-list">
+                    <li class="active"><a href="#">最新课堂</a></li>
+                    <li><a href="#">投资人说</a></li>
+                    <li><a href="#">明星案例</a></li>
+                    <li><a href="#">创业知识</a></li>
                 </ul>
             </div>
         </div>
-    </div>
-</div>
 
-<footer class="footer">
-    <div class="top-group">
-        <div class="top-inner-group">
-            <div class="logo-box">
-
-            </div>
-            <div class="detail-group">
-                <div class="line1">
-                    <ul class="links">
-                        <li><a href="#">关于小饭桌</a></li>
-                        <li><a href="#">创业课堂</a></li>
-                        <li><a href="#">寻求报道</a></li>
-                        <li><a href="#">创业礼包</a></li>
-                    </ul>
-                    <div class="about-us">
-                        <span class="title">关于我们:</span>
-                        <ul class="social-group">
-                            <li class="weixin">
-                                <a class="text" href="#">小饭桌</a>
-                                <div class="wx-qrcode">
-
-                                </div>
-                            </li>
-                            <li class="weibo"><a class="text" href="#">小饭桌课堂</a></li>
-                        </ul>
+        <div class="wrapper">
+            <div class="course-wrapper">
+                <div class="course-info">
+                    <p class="course-title">对赌是什么　该不该做对赌</p>
+                    <div class="price-group">
+                        <div class="share-group">
+                            <span class="title">分享至 : 微信 / 微博</span>
+                        </div>
+                        <div class="buy-group">
+                            <span class="price pay">$49.0</span>
+                            <a href="#" class="buy-btn">立即购买</a>
+                        </div>
                     </div>
                 </div>
-                <div class="line2">
-                    <p class="address">
-                        地址：北京市朝阳区东三环北路38号院泰康金融大厦
-                    </p>
-                    <p class="contact">
-                        客服电话： 400-810-1090 (工作日10点－18点)
-                    </p>
+                <div class="video-group">
+
+                </div>
+            </div>
+            <div class="bottom-wrapper">
+                <div class="course-detail-wrapper">
+                    <div class="item-group">
+                        <p class="item-title">课程讲师</p>
+                        <div class="teacher-group">
+                            <div class="avatar-group">
+                                <img src="https://static-image.xfz.cn/1508120374_220.jpg" alt="">
+                            </div>
+                            <div class="teacher-info">
+                                <p class="teacher-name">知了课堂</p>
+                                <p class="teacher-desc">专业投资人；一线基金董事总经理</p>
+                            </div>
+                        </div>
+                        <p class="item-content">
+                            乔继英，专业投资人，一线基金董事总经理，十五年以上研发、市场销售、投资经验，投资领域覆盖天使投资、
+                            中早期风险投资、PE投资、并购、母基金FOF投资等领域。代表案例：华润凤凰（1515.HK）、微芯生物、二毛照护、九鼎美元基金等。
+                            个人间接投资摩拜单车、硅谷大数据公司Palantir等。曾在淡马锡祥峰投资、蓝驰创投、启迪创投等工作，世界五百强公司研发、市场销售主管。
+                            北京市高精尖产业基金评审组长、知名证券公司专业专家。清华大学本科、医学院博士、校友导师，曾与哈佛大学合作课题；香港中文大学金融MBA、客座讲师。
+                        </p>
+                    </div>
+                    <div class="item-group">
+                        <p class="item-title">课程简介</p>
+                        <p class="item-content">
+                            危机公关需要掌握好“度”——速度。
+                            添加微信号：onemoreholiday，免费完整课程。
+                        </p>
+                    </div>
+                    <div class="item-group">
+                        <p class="item-title">课程大纲</p>
+                        <p class="item-content">
+                            面对危机公关，多快算快？
+                            面对危机公关，谁出面做解释和声明最有效？
+                            案例分析：戴尔和罗永浩
+                            危机公关，真的是“唯快不破”吗？
+                        </p>
+                    </div>
+                    <div class="item-group">
+                        <p class="item-title">适应人群</p>
+                        <p class="item-content">
+                            乔继英，专业投资人，一线基金董事总经理，十五年以上研发、市场销售、投资经验，投资领域覆盖天使投资、 。代表案例：华润凤凰（1515.HK）、微芯生物、二毛照护、九鼎美元基金等。
+                            组长、知名证券公司专业专家。清华大学本科、医学院博士、校友导师，曾与哈佛大学合作课题；香港中文大学金融MBA、客座讲师。
+                        </p>
+                    </div>
+                    <div class="item-group">
+                        <p class="item-title">帮助中心</p>
+                        <p class="item-content">
+                            知名证券公司专业专家。清华大学本科、医学院博士、校友导师，曾与哈佛大学合作课题；香港中文大学金融MBA、客座讲师。
+                        </p>
+                    </div>
+                    <div class="item-group">
+                        <p class="item-title">关于课堂</p>
+                        <p class="item-content">
+                            乔继英，专业投资人，一线基金董事总经理，十五年以上研发、市场销售、投资经验，投资领域覆盖天使投资、
+                            知名证券公司专业专家。清华大学本科、医学院博士、校友导师，曾与哈佛大学合作课题；香港中文大学金融MBA、客座讲师。
+                        </p>
+                    </div>
+                </div>
+                <div class="recommand-wrapper">
+                    <p class="recommand-title">推荐课程</p>
+                    <ul class="course-list">
+                        <li>
+                            <a href="#">
+                                <div class="course-info-group">
+                                    <p class="course-title">
+                                        未来消费：如何把握潮水的方向
+                                    </p>
+                                    <p class="teacher">
+                                        知了课堂CEO
+                                    </p>
+                                </div>
+                                <div class="thumbnail-group">
+                                    <img src="https://static-image.xfz.cn/1534236783_765.png-course.list.small" alt="">
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div class="course-info-group">
+                                    <p class="course-title">
+                                        如何把握潮水的方向
+                                    </p>
+                                    <p class="teacher">
+                                        知了课堂CEO
+                                    </p>
+                                </div>
+                                <div class="thumbnail-group">
+                                    <img src="https://static-image.xfz.cn/1534236783_765.png-course.list.small" alt="">
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-    <div class="bottom-group">
-        ©2018 北京子木投资顾问有限公司 京ICP备15051289号 | 增值电信业务经营许可证：京B2-20170574
-    </div>
-</footer>
-</body>
-</html>　
+
+{% endblock %}
+
+

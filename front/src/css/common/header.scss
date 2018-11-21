@@ -1,9 +1,9 @@
-@import 'init';
-@import "constants";
+@import "init.scss";
+@import "constants.scss";
 
 .header{
     width: 100%;
-    height: 64px;
+    height: $navHeight;
     background: #3a3a3a;
     position: fixed;
     left: 0;
@@ -14,18 +14,15 @@
     .container{
         width: $pageWidth;
         height: 100%;
-        //background: yellowgreen;
         margin: 0 auto;
-        overflow: hidden;
 
         .logo-box{
             width: 140px;
-            height: 54px;
-            background: url("
-            https://www.bufanbiz.com/static/build/images/logo.png");
-            background-repeat: no-repeat;
+            height: 49px;
+            background: url("http://www.xfz.cn/static/build/images/logo.png") no-repeat;
             margin-top: 8px;
             float: left;
+
             a{
                 display: block;
                 width: 100%;
@@ -34,8 +31,8 @@
         }
 
         .nav{
-            float: left;
             margin-left: 128px;
+            float: left;
 
             li{
                 float: left;
@@ -43,32 +40,66 @@
                 line-height: $navHeight;
                 height: $navHeight;
                 box-sizing: border-box;
-
                 a{
-                    color: #ffffff;
+                    color: #fff;
                 }
 
                 &.active{
-                    border-bottom: 5px solid #5c87d9;//父标签-li
+                    border-bottom: 5px solid #5c87d9;
                 }
             }
+
         }
 
         .auth-box{
             float: right;
             line-height: $navHeight;
             height: $navHeight;
-            color: #ffffff;
-
-            a{
-                color: #ffffff;
-            }
+            color: #fff;
+            position: relative;
 
             .iconfont{
-                color: #ffffff;
+                color: #fff;
                 font-size: 20px;
             }
 
+            a{
+                color: #fff;
+            }
+            .user-more-box{
+                background: #fff;
+                width: 140px;
+                //height: 90px;
+                position: absolute;
+                box-shadow: 0 3px 4px #ccc;
+                border-radius: 5px;
+                top: 65px;
+                left: 50%;
+                margin-left: -70px;
+                font-size: 14px;
+                z-index: 2;
+                display: none;
+
+                .triangle{
+                    border: solid transparent;
+                    border-width: 10px;
+                    border-bottom-color: #fff;
+                    display: block;
+                    width: 0;
+                    height: 0;
+                    margin-top: -20px;
+                    margin-left: 60px;
+                }
+                a{
+                    text-align: center;
+                    height: 44px;
+                    color: #6d85ac!important;
+                    display: block;
+                    line-height: 44px;
+                }
+            }
         }
     }
+
+
 }

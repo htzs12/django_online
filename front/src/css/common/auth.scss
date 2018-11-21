@@ -2,7 +2,7 @@
 @import "constants";
 
 body{
-    background: pink;
+
 }
 
 .mask-wrapper{
@@ -11,14 +11,20 @@ body{
     right: 0;
     top: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.6);
     overflow-y: scroll;
+    z-index: 100;
+    display: none;
     
     .auth-wrapper{
         width: 400px;
         height: 520px;
-        margin: 40px auto;
         background: #ffffff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -200px;
+        margin-top: -310px;
         
         .close-wrapper{
             width: 100%;
@@ -109,10 +115,7 @@ body{
                             .input-group-addon{
                                 float: right;
                                 width: 100px;
-                                
-                                img{
-                                
-                                }
+                                cursor: pointer;
                                 
                                 .sms-captcha-btn{
                                     width: 100%;
@@ -124,6 +127,11 @@ body{
                                     line-height: 40px;
                                     box-sizing: border-box;
                                     cursor: pointer;
+                                }
+                                
+                                .disabled{
+                                    color: #cccccc;
+                                    border-color: #cccccc;
                                 }
                             }
                         }

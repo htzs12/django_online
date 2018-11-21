@@ -1,0 +1,243 @@
+
+// 处理导航条
+function FrontBase() {
+
+}
+
+FrontBase.prototype.run = function () {
+    var self = this;
+    self.listenAuthBoxHover();
+};
+
+
+FrontBase.prototype.listenAuthBoxHover = function () {
+    var authBox = $('.auth-box');
+    var userMoreBox = $('.user-more-box');
+    authBox.hover(function () {
+        userMoreBox.show();
+        },function () {
+        userMoreBox.hide();
+    });
+};
+
+
+//点击登录按钮，弹出模态对话框
+
+// $(function () {
+//     $('#btn').click(function () {
+//         $('.mask-wrapper').show();
+//     });
+//
+//     $('.close-btn').click(function () {
+//         $('.mask-wrapper').hide()
+//     })
+// });
+
+// 登录注册页面　点击切换
+// $(function () {
+//    $('.switch').click(function () {
+//       var srcollWrapper = $('.scroll-wrapper');
+//       var currentLeft = srcollWrapper.css('left');
+//       currentLeft = parseInt(currentLeft);//解析为整型
+//        if(currentLeft<0){
+//            srcollWrapper.animate({'left':'0'});
+//        }else {
+//            srcollWrapper.animate({'left':'-400px'});
+//        }
+//    });
+// });
+//
+
+function Auth() {
+    var self = this;
+    self.maskWrapper = $('.mask-wrapper');
+    self.scrollWrapper = $('.scroll-wrapper');
+}
+
+Auth.prototype.run = function () {
+    var self = this;
+    self.listenShowHideEvent();
+    self.listenSwitchEvent();
+    self.listenSigninEvent();
+    self.listenSignupEvent();
+    self.listenImgCaptchaEvent();
+    self.listenSmsCaptchaEvent();
+};
+
+Auth.prototype.showEvent = function () {
+    var self = this;
+    self.maskWrapper.show();
+};
+
+Auth.prototype.hideEvent = function () {
+    var self = this;
+    self.maskWrapper.hide()
+};
+
+//　实现点击登录注册按钮
+Auth.prototype.listenShowHideEvent = function () {
+    var self = this;
+    var signinBtn = $('.signin-btn');
+    var signupBtn = $('.signup-btn');
+    var closeBtn = $('.close-btn');
+    signinBtn.click(function () {
+        self.showEvent();
+        self.scrollWrapper.css({'left':0});
+    });
+    signupBtn.click(function () {
+        self.showEvent();
+        self.scrollWrapper.css({'left':-400});
+    });
+    closeBtn.click(function () {
+       self.hideEvent();
+    });
+};
+
+
+// 实现点击登录注册切换
+Auth.prototype.listenSwitchEvent = function () {
+    var self = this;
+    var switcher = $('.switch');
+    switcher.click(function () {
+        var currentLeft = self.scrollWrapper.css('left');
+        currentLeft = parseInt(currentLeft);//解析为整型
+        if(currentLeft<0){
+           self.scrollWrapper.animate({'left':'0'});
+        }else {
+           self.scrollWrapper.animate({'left':'-400px'});
+        }
+    });
+};
+
+// 实现点击图片更换验证码
+Auth.prototype.listenImgCaptchaEvent = function () {
+    var imgCaptcha = $('.img-captcha');
+    imgCaptcha.click(function () {
+        imgCaptcha.attr('src','/account/img_captcha/'+'?random='+Math.random()) //产生０－１之间随机数
+    });
+
+};
+
+//　发送验证码成功执行
+Auth.prototype.smsSuccessEvent = function () {
+    var self = this;
+    var smsCaptcha = $('.sms-captcha-btn');
+    messageBox.showSuccess('短信验证码发送成功！');
+    smsCaptcha.addClass('disabled');
+    var count = 60;
+    smsCaptcha.unbind('click'); // 倒计时期间取消点击事件
+    var timer = setInterval(function () {
+        smsCaptcha.text(count + 's');
+        count = count - 1;
+        // count -= 1;
+        if (count <= 0) {
+            clearInterval(timer);
+            smsCaptcha.removeClass('disabled');
+            smsCaptcha.text('发送验证码');
+            self.listenSmsCaptchaEvent();
+        }
+    }, 1000); // 1000毫秒执行一次函数
+};
+
+
+// 发送短信验证码
+Auth.prototype.listenSmsCaptchaEvent = function () {
+    var self = this;
+    var smsCaptcha = $('.sms-captcha-btn');
+    var telephoneInput = $(".signup-group input[name='telephone']");
+    smsCaptcha.click(function () {
+        var telephone = telephoneInput.val();
+        if(!telephone){
+            messageBox.showInfo('请输入手机号码！');
+        }
+        xfzajax.get({
+           'url':'/account/sms_captcha/',
+            'data':{
+               'telephone':telephone
+            },
+            'success':function (result) {
+                if(result['code'] == 200){
+                    self.smsSuccessEvent();
+                }
+            },
+            'fail':function (error) {
+                console.log(error);
+            }
+        });
+    });
+};
+
+// 实现登录
+Auth.prototype.listenSigninEvent = function () {
+    var self = this;
+    var signinGroup = $('.signin-group');
+    var telephoneInput = signinGroup.find("input[name='telephone']");
+    var passwordInput = signinGroup.find("input[name='password']");
+    var rememberInput = signinGroup.find("input[name='remember']");
+
+    var submitBtn = signinGroup.find(".submit-btn");
+    submitBtn.click(function () {
+        var telephone = telephoneInput.val();
+        var password = passwordInput.val();
+        var remember = rememberInput.prop("checked");
+        xfzajax.post({
+            'url':'/account/login/',
+            'data':{
+                'telephone':telephone,
+                'password':password,
+                'remember':remember?1:0
+            },
+            'success':function (result) {
+                self.hideEvent();
+                window.location.reload(); // ajax调用
+            },
+        });
+    });
+};
+
+// 实现注册
+Auth.prototype.listenSignupEvent = function () {
+    var signupGroup = $('.signup-group');
+    var submitBtn = signupGroup.find('.submit-btn');
+    submitBtn.click(function (event) {
+        event.preventDefault();
+        var telephoneInput = signupGroup.find("input[name='telephone']");
+        var usernameInput = signupGroup.find("input[name='username']");
+        var imgCaptchaInput = signupGroup.find("input[name='img_captcha']");
+        var password1Input = signupGroup.find("input[name='password1']");
+        var password2Input = signupGroup.find("input[name='password2']");
+        var smsCaptchaInput = signupGroup.find("input[name='sms_captcha']");
+
+        var telephone = telephoneInput.val();
+        var username = usernameInput.val();
+        var img_captcha = imgCaptchaInput.val();
+        var password1 = password1Input.val();
+        var password2 = password2Input.val();
+        var sms_captcha = smsCaptchaInput.val();
+
+        xfzajax.post({
+            'url': '/account/register/',
+            'data': {
+                'telephone': telephone,
+                'username': username,
+                'img_captcha': img_captcha,
+                'password1': password1,
+                'password2': password2,
+                'sms_captcha': sms_captcha
+            },
+            'success': function (result) {
+                window.location.reload();
+            }
+        });
+    });
+};
+
+$(function () {
+   var auth = new Auth();
+   auth.run();
+});
+
+$(function () {
+   var frontBase = new FrontBase();
+   frontBase.run();
+});

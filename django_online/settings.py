@@ -40,7 +40,8 @@ INSTALLED_APPS = [
 
     'apps.news',
     'apps.cms',
-    'apps.xfzauth'
+    'apps.xfzauth',
+    'apps.ueditor'
 ]
 
 MIDDLEWARE = [
@@ -113,6 +114,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = 'xfzauth.User'  # 指定User模型
 
+CACHES = {
+    'default':{
+        'BACKEND':'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION':'127.0.0.1:11211'
+    }
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -135,3 +143,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'front', 'dist')
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+UEDITOR_UPLOAD_TO_SERVER = True
+UEDITOR_UPLOAD_TO_PATH = MEDIA_ROOT
+UEDITOR_CONFIG_PATH = os.path.join(BASE_DIR,'front','dist','ueditor','config.json')
