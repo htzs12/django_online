@@ -26,6 +26,7 @@
     "underscore": "^1.9.1"
   },
   "dependencies": {
+    "art-template": "^4.13.2",
     "gulp-sass": "^4.0.2"
   }
 }

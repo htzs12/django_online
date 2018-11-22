@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'apps.news',
     'apps.cms',
     'apps.xfzauth',
-    'apps.ueditor'
+    'apps.ueditor',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -147,6 +148,12 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
+#  上传自己的服务器
 UEDITOR_UPLOAD_TO_SERVER = True
-UEDITOR_UPLOAD_TO_PATH = MEDIA_ROOT
+UEDITOR_UPLOAD_PATH = MEDIA_ROOT
+
 UEDITOR_CONFIG_PATH = os.path.join(BASE_DIR,'front','dist','ueditor','config.json')
+
+
+#  一次加载多少篇文章
+ONE_PAGE_NEWS_COUNT = 2

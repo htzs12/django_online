@@ -169,3 +169,116 @@ $(function () {
     var banner = new Banner();
     banner.run();//主启动函数
 });
+
+// *---------------------------------------------------------
+
+function Index() {
+    var self = this;
+    self.page = 2;
+    self.category_id = 0;
+    self.loadBtn = $('#load-more-btn');
+
+    // 处理新闻添加时间显示格式
+    template.defaults.imports.timeSince = function (dateValue) {
+        var date = new Date(dateValue);
+        var datets = date.getTime(); // 得到的是毫秒的时间戳
+        var nowts = (new Date()).getTime(); // 得到的是当前时间的时间戳
+        var timestamp = (nowts - datets)/1000;
+        console.log(timestamp);
+        if(timestamp < 60) {
+            return '刚刚';
+        }
+        else if(timestamp >= 60 && timestamp < 60*60) {
+            minutes = parseInt(timestamp / 60);
+            return minutes+'分钟前';
+        }
+        else if(timestamp >= 60*60 && timestamp < 60*60*24) {
+            hours = parseInt(timestamp / 60 / 60);
+            return hours+'小时前';
+        }
+        else if(timestamp >= 60*60*24 && timestamp < 60*60*24*30) {
+            days = parseInt(timestamp / 60 / 60 / 24);
+            return days+'天前';
+        }else {
+            var year = date.getFullYear();
+            var month = date.getMonth();
+            var day = date.getDay();
+            var hour = date.getHours();
+            var minute = date.getMinutes();
+            return year+'/'+month+'/'+day+' '+hour+':'+minute;
+        }
+    }
+}
+
+// 首页新闻点击加载更多
+Index.prototype.listenLoadMoreEvent = function () {
+    var self = this;
+    var page = self.page;
+    self.loadBtn.click(function () {
+        xfzajax.get({
+            'url': '/news/news_list/',
+            'data': {
+                'p': self.page,
+                'category_id':self.category_id
+            },
+            'success': function (result) {
+                if (result['code'] === 200) {
+                    var newses = result['data'];
+                    if(newses.length > 0){
+                        var tpl = template('news-item', {'newses': newses});
+                        var ul = $('.list-inner-group');
+                        ul.append(tpl);
+                        self.page += 1;
+                    }else {
+                        window.messageBox.showError('已经没有更多新闻了！');
+                        self.loadBtn.hide();
+                    }
+                }
+            }
+        });
+    });
+};
+
+// 实现首页点击分类切换
+Index.prototype.listenCategorySwitchEvent = function () {
+    var self = this;
+    var tabGroup = $(".list-tab");
+    tabGroup.children().click(function () {
+        // this：代表当前选中的这个li标签
+        var li = $(this);
+        var category_id = li.attr("data-category");
+        var page = 1;
+        xfzajax.get({
+            'url': '/news/news_list/',
+            'data': {
+                'category_id': category_id,
+                'p': page
+            },
+            'success': function (result) {
+                if(result['code'] === 200){
+                    var newses = result['data'];
+                    var tpl = template("news-item",{"newses":newses});
+                    // empty：可以将这个标签下的所有子元素都删掉
+                    var newsListGroup = $(".list-inner-group");
+                    newsListGroup.empty();
+                    newsListGroup.append(tpl);
+                    self.page = 2;
+                    self.category_id = category_id;
+                    li.addClass('active').siblings().removeClass('active');
+                    self.loadBtn.show();
+                }
+            }
+        });
+    });
+};
+
+Index.prototype.run = function () {
+    var self = this;
+    self.listenLoadMoreEvent();
+    self.listenCategorySwitchEvent();
+};
+
+$(function () {
+   var index = new Index();
+   index.run();
+});
