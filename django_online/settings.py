@@ -25,7 +25,9 @@ SECRET_KEY = '118q_l4lzx$)4kc2s1q*0g^20q09q0p&qzt(lqob)g37wdl#zb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+INTERNAL_IPS = ("127.0.0.1",)
 
 
 # Application definition
@@ -42,10 +44,12 @@ INSTALLED_APPS = [
     'apps.cms',
     'apps.xfzauth',
     'apps.ueditor',
-    'rest_framework'
+    'rest_framework',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

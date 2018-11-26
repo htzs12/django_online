@@ -3,6 +3,7 @@ var cssnano = require("gulp-cssnano");
 var rename = require("gulp-rename");
 var uglify = require("gulp-uglify");
 var concat = require("gulp-concat");
+var cache = require('gulp-cache');
 var imagemin = require("gulp-imagemin");
 var sass = require('gulp-sass');
 var util = require('gulp-util');
@@ -65,7 +66,7 @@ gulp.task("watch",function () {
     // gulp.watch(path.css + '*.css',['css']);
     gulp.watch(path.css + '*.scss',['css']);
     gulp.watch(path.js + '*.js',['js']);
-    gulp.watch(path.images + '*.images',['images']);
+    gulp.watch(path.images + '*.*',['images']);
 });
 
 

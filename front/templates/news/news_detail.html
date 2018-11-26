@@ -1,11 +1,32 @@
 {% extends 'base/front_base.html' %}
 {% load staticfiles %}
+{% load news_filters %}
 
 {% block title %}新闻详情 - 小饭桌{% endblock %}
 
 {% block head %}
 
     <link rel="stylesheet" href="{% static 'css/news/news_detail.min.css' %}">
+    <script src="{% static 'arttemplate/template-web.js' %}"></script>
+    <script src="{% static 'js/news_detail.min.js' %}"></script>
+
+{#    <script id="comment-item" type="text/html">#}
+{##}
+{#    {% verbatim %}#}
+{#        <li>#}
+{#            <div class="comment-info">#}
+{#                <img src="https://static-image.xfz.cn/1542376201_968.jpg" class="avatar">#}
+{#                <span class="author">{{ comment.author.username }}</span>#}
+{#                <span class="pub-time">{{ comment.pub_time }}</span>#}
+{#            </div>#}
+{#            <div class="comment-content">#}
+{#                {{ comment.content }}#}
+{#            </div>#}
+{#        </li>#}
+{#    {% endverbatim %}#}
+{##}
+{#    </script>#}
+
 
 {% endblock %}
 
@@ -15,13 +36,13 @@
     <div class="wrapper">
         <div class="news-wrapper">
             <h1 class="title">
-                大疆创新与苹果公开发售特洛，Tello EDU教育编程无人机
+                {{ news.title }}
             </h1>
             <div class="news-info">
                 <div class="info-group">
-                    <span class="author">阿里巴巴</span>
-                    <span class="pub-time">11月15日</span>
-                    <span class="category">热点</span>
+                    <span class="author">{{ news.author.username }}</span>
+                    <span class="pub-time">{{ news.pub_time|time_since }}</span>
+                    <span class="category">{{ news.category.name }}</span>
                 </div>
                 <div class="share-group">
                     <span class="title">分享至:</span>
@@ -30,43 +51,30 @@
                 </div>
             </div>
             <article class="article">
-                11月14日，全球民用无人机及航拍技术DJI大疆创新与苹果公司宣布，将在各自官方渠道公开销售特洛Tello EDU教育编程无人机，为全球青少年及无人机爱好者带来这一优秀的教育科技产品。
-
-                Tello EDU教育编程无人机由初创企业睿炽科技推出，在特洛Tello趣味无人机的基础上进行全面升级。新开放的SDK2.0令其更适合教育场景。Tello
-                EDU支持包括Scratch、Swift、Python、C++在内的多种编程语言，可在室内进行多机编队飞行，独创的多功能配件“挑战卡”则让Tello
-                EDU在没有GPS的情况下也能获取自身在三维空间中的精准位置。
-
-                睿炽科技表示，特洛Tello
-                EDU专为教育领域的场景和需求而设计，是一款独一无二的教育编程无人机。自面向学校与教育机构推出以来，成功应用到无数的课堂和夏令营等教育活动中，成为目前无人机科普、编程教育的重要STEAM教具之一。Tello
-                EDU将帮助更多孩子提升在三维空间中的分析解决能力，让更多的孩子享受到学习物理、工程以及计算机编程等领域知识的多元趣味方式。
+                {{ news.content|safe }}
             </article>
             <div class="comment-wrapper">
                 <h3 class="title">文章评论(0)</h3>
-                <textarea class="comment-textarea logined-textarea" name="comment" id="" readonly placeholder="立即登录，参与评论～"></textarea>
+                <textarea class="comment-textarea logined-textarea" name="comment" id="" placeholder="立即登录，参与评论～"></textarea>
                 <div class="submit-btn-group">
-                    <button class="submit-btn">立即评论</button>
+                    <button class="submit-btn" data-news-id="{{ news.id }}">立即评论</button>
                 </div>
                 <ul class="comment-list">
-                    <li>
-                        <div class="comment-info">
-                            <img src="https://static-image.xfz.cn/1542376201_968.jpg" class="avatar">
-                            <span class="author">你浩哥</span>
-                            <span class="pub-time">１小时前</span>
-                        </div>
-                        <div class="comment-content">
-                            这是第一条评论...
-                        </div>
-                    </li>
-                    <li>
-                        <div class="comment-info">
-                            <img src="https://static-image.xfz.cn/1542376201_968.jpg" class="avatar">
-                            <span class="author">你浩哥</span>
-                            <span class="pub-time">１小时前</span>
-                        </div>
-                        <div class="comment-content">
-                            这是第一条评论...
-                        </div>
-                    </li>
+                    {% for comment in news.comment_set.all %}
+
+                        <li>
+                            <div class="comment-info">
+                                <img src="https://static-image.xfz.cn/1542376201_968.jpg" class="avatar">
+                                <span class="author">{{ comment.author.username }}</span>
+                                <span class="pub-time">{{ comment.pub_time|timesince }}前</span>
+                            </div>
+                            <div class="comment-content">
+                                {{ comment.content }}
+                            </div>
+                        </li>
+
+                    {% endfor %}
+
                 </ul>
             </div>
         </div>

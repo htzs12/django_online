@@ -1,4 +1,5 @@
 {% extends 'cms/base.html' %}
+{% load staticfiles %}
 
 {% block title %}
     轮播图管理
@@ -55,9 +56,11 @@
 <div class="banner-list-group"></div>
 
 <script id="banner-item" type="text/html">
+
 {% verbatim %}
+
 {{ if banner }}
-<div class="box banner-item" data-banner-id="{{ banner.id }}">
+<div class="box banner-item" data-banner-id="{{ banner.id }}"><!-- 添加删除功能 -->
 {{ else }}
 <div class="box banner-item">
 {{ /if }}
@@ -83,9 +86,9 @@
         <div class="more-group">
             <div class="form-group">
                 {{ if banner }}
-                    <input type="number" class="form-control" name="priority" value="{{ banner.priority }}">
+                    <input type="text" class="form-control" name="priority" value="{{ banner.priority }}">
                 {{ else }}
-                    <input type="number" class="form-control" name="priority">
+                    <input type="text" class="form-control" name="priority">
                 {{ /if }}
             </div>
             <div class="form-group">
@@ -102,5 +105,7 @@
     </div>
 </div>
 {% endverbatim %}
+
 </script>
+
 {% endblock %}
