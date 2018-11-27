@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'apps.xfzauth',
     'apps.ueditor',
     'rest_framework',
-    'debug_toolbar'
+    'debug_toolbar',
+    'apps.course'
 ]
 
 MIDDLEWARE = [

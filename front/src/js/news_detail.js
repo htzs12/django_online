@@ -49,7 +49,7 @@ NewsList.prototype.listenSubmitEvent = function () {
                 console.log(result);
                 if(result['code'] === 200){
                     window.messageBox.showSuccess('评论发表成功！');
-                    setTimeout('window.location.reload()',2000);
+                    setTimeout('window.location.reload()',1500);
                 }else{
                     window.messageBox.showError(result['message']);
                 }

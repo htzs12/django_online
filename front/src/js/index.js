@@ -48,6 +48,7 @@ Banner.prototype.initPageControl = function () {
     self.pageControl.css({'width':self.bannerCount*12+8*2+16*(self.bannerCount-1)})
 };// 动态修改小圆点外部div总宽度
 
+
 Banner.prototype.animate = function () {
     //封装通用函数 - 轮播图
     var self = this;
@@ -173,6 +174,13 @@ $(function () {
 // *---------------------------------------------------------
 
 
+function Index() {
+    var self = this;
+    self.page = 2;
+    self.category_id = 0;
+    self.loadBtn = $("#load-more-btn");
+}
+
 // 首页新闻点击加载更多
 Index.prototype.listenLoadMoreEvent = function () {
     var self = this;
@@ -234,6 +242,7 @@ Index.prototype.listenCategorySwitchEvent = function () {
         });
     });
 };
+
 
 Index.prototype.run = function () {
     var self = this;

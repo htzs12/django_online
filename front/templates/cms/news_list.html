@@ -87,7 +87,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for news in newses %}
+                    {% for news in page_obj.object_list %}
                         <tr>
                             <td><a target="_blank" href="{% url 'news:news_detail' news_id=news.pk %}">{{ news.title }}</a></td>
                             <td>{{ news.category.name }}</td>

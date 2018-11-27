@@ -36,6 +36,7 @@ def time_since(value):
     else:
         return value.strftime("%Y/%m/%d %H:%M")
 
+
 @register.filter
 def time_format(value):
     if not isinstance(value,datetime):

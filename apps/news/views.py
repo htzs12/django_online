@@ -5,7 +5,7 @@ from utils import restful
 from .serializers import NewsSerializers,CommentSerializers
 from django.http import Http404
 from .forms import PublicCommentForm
-from .models import Comment
+from .models import Comment,Banner
 from apps.xfzauth.decorators import xfz_login_required
 
 
@@ -13,6 +13,7 @@ def index(request):
     count = settings.ONE_PAGE_NEWS_COUNT
     newses = News.objects.select_related('category','author').all()[0:count]
     categories = NewsCategorty.objects.all()
+    banners = Banner.objects.all()
     return render(request,'news/index.html',locals())
 
 

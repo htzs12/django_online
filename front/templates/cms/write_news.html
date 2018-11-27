@@ -35,7 +35,8 @@
                         <div class="form-group">
                             <label for="title-form">标题</label>
                             {% if news %}
-                                <input type="text" class="form-control" name="title" id="title-form" value="{{ news.title }}">                                            {% else %}
+                                <input type="text" class="form-control" name="title" id="title-form" value="{{ news.title }}">
+                            {% else %}
                                 <input type="text" class="form-control" name="title" id="title-form">
                             {% endif %}
                         </div>
@@ -56,7 +57,8 @@
                         <div class="form-group">
                             <label for="desc-form">描述</label>
                             {% if news %}
-                                <input type="text" class="form-control" id="desc-form" name="desc" value="{{ news.desc }}">                                               {% else %}
+                                <input type="text" class="form-control" id="desc-form" name="desc" value="{{ news.desc }}">
+                            {% else %}
                                 <input type="text" class="form-control" id="desc-form" name="desc">
                             {% endif %}
                         </div>
@@ -83,13 +85,25 @@
                                 </div>
                             </div>
                         </div>
+{#                        <div class="form-group">#}
+{#                            <label for="content-form">内容</label>#}
+{#                            {% if news %}#}
+{#                            <script id="editor" type="text/plain">#}
+{#                                {{ news.content|safe }}#}
+{#                            </script>#}
+{#                                {% else %}#}
+{#                                <script id="editor" type="text/plain">#}
+{##}
+{#                            </script>#}
+{#                            {% endif %}#}
+{#                        </div>#}
                         <div class="form-group">
-                            <label for="content-form">内容</label>
-                            <script id="editor" type="text/plain">
-                                {{ news.content|safe }}
-                            </script>
+                                <label for="content-form">内容</label>
+                                <script id="editor" type="text/plain">
+                                    {{ news.content|safe }}
+                                </script>
+                            </div>
                         </div>
-                    </div>
                     <div class="box-footer">
                         <button id="submit-btn" data-news-id="{{ news.pk }}" class="btn btn-primary pull-right">发布新闻</button>
                     </div>

@@ -60,40 +60,20 @@
         <div class="news-wrapper">
             <div class="banner-group" id="banner-group">
                 <ul class="banner-ul" id="banner-ul">
+                    {% for banner in banners %}
+
                     <li>
-                        <a href="">
-                            <img src="https://static-image.xfz.cn/1537511352_611.jpeg" alt="">
+                        <a href="{{ banner.link_to }}">
+                            <img src="{{ banner.image_url }}" alt="">
                         </a>
                     </li>
-                    <li>
-                        <a href="">
-                            <img src="https://static-image.xfz.cn/1539770831_872.jpg" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="https://static-image.xfz.cn/1537511352_611.jpeg" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="https://static-image.xfz.cn/1539770831_872.jpg" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="https://static-image.xfz.cn/1539770831_872.jpg" alt="">
-                        </a>
-                    </li>
+
+                    {% endfor %}
                 </ul>
                 <span class="arrow left-arrow">‹</span>
                 <span class="arrow right-arrow">›</span>
                 <div class="page-control-group">
                     <ul class="page-control">
-                        <!--<li class="active"></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>-->
                     </ul>
                 </div>
             </div>

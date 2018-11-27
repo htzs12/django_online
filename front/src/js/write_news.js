@@ -2,12 +2,6 @@ function News() {
 
 }
 
-News.prototype.run = function () {
-    var self = this;
-    self.listenUploadFilelEvent();
-    self.initUEditor();
-    self.listenSubmitEvent();
-};
 
 // 上传文件
 News.prototype.listenUploadFilelEvent = function () {
@@ -47,32 +41,57 @@ News.prototype.listenSubmitEvent = function () {
     submitBtn.click(function (event) {
         event.preventDefault();
 
+        var btn = $(this);
+        var news_id = btn.attr('data-news-id');
+
         var title = $('input[name="title"]').val();
         var category = $('select[name="category"]').val();
         var desc = $('input[name="desc"]').val();
         var thumbnail = $('input[name="thumbnail"]').val();
         var content = window.ue.getContent();
-        console.log(content);
+
+        var url = '';
+            if(news_id){
+                url = '/cms/edit_news/';
+            }else {
+                url = '/cms/write_news/';
+            }
 
         xfzajax.post({
-           'url':'/cms/write_news/',
+           'url':url,
            'data':{
                'title':title,
                'category':category,
                'desc':desc,
                'thumbnail':thumbnail,
-               'content':content
+               'content':content,
+               'news_id':news_id
            },
             'success':function (result) {
                 if(result['code'] === 200){
-                    xfzalert.alertSuccess('恭喜！新闻发表成功！',function () {
+                    if(news_id){
+                        xfzalert.alertSuccess('恭喜！新闻修改成功！',function () {
                         window.location.reload();
                     });
+                    }else{
+                        xfzalert.alertSuccess('恭喜！新闻发表成功！',function () {
+                        window.location.reload();
+                        });
+                    }
                 }
             }
         });
     });
 };
+
+
+News.prototype.run = function () {
+    var self = this;
+    self.listenUploadFilelEvent();
+    self.initUEditor();
+    self.listenSubmitEvent();
+};
+
 
 $(function () {
     var news = new News();
