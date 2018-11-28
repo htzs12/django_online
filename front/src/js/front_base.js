@@ -244,7 +244,7 @@ $(function () {
 
 
 $(function () {
-    if(template){
+    if(window.template){
         template.defaults.imports.timeSince = function (dateValue) {
             var date = new Date(dateValue);
             console.log(dateValue);
