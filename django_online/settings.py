@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     'apps.ueditor',
     'rest_framework',
     'debug_toolbar',
-    'apps.course'
+    'apps.course',
+    'apps.payinfo',
+    'haystack'
 ]
 
 MIDDLEWARE = [
@@ -95,7 +97,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'root',
-        'PASSWORD': 'wan12300'
+        'PASSWORD': 'wan1230'
     }
 }
 
@@ -202,3 +204,17 @@ DEBUG_TOOLBAR_CONFIG = {
 BAIDU_CLOUD_USER_ID = '376e830a932743bda634c19cc1963592'
 # 点播VOD->全局设置->发布设置->安全设置->UserKey
 BAIDU_CLOUD_USER_KEY = '2aabf848d0104c65'
+
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        # 设置haystack的搜索引擎
+        'ENGINE': 'apps.news.whoosh_cn_backend.WhooshEngine',
+        # 设置索引文件的位置
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    }
+}
+
+
+#增删改后自动创建索引
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'

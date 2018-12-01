@@ -7,7 +7,7 @@ from django.http import Http404
 from .forms import PublicCommentForm
 from .models import Comment,Banner
 from apps.xfzauth.decorators import xfz_login_required
-
+from django.db.models import Q
 
 def index(request):
     count = settings.ONE_PAGE_NEWS_COUNT
@@ -43,10 +43,6 @@ def news_detail(request,news_id):
     return render(request,'news/news_detail.html',locals())
 
 
-def search(request):
-    return render(request,'search/search.html')
-
-
 # @xfz_login_required
 # def public_comment(request):
 #     form = PublicCommentForm(request.POST)
@@ -73,3 +69,12 @@ def public_comment(request):
         return restful.ok()
     else:
         return restful.params_error(message=form.get_errors())
+
+
+def search(request):
+    q = request.GET.get('q')
+    context = {}
+    if q:
+        newses = News.objects.select_related('category','author').filter(Q(title__icontains=q)|Q(content__icontains=q))
+        context['newses'] = newses
+    return render(request,'search/search.html',context=context)

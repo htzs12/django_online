@@ -93,7 +93,7 @@
                         <span>首页</span>
                     </a>
                 </li>
-{#                {% if perms.news.change_news %}#}
+                {% if perms.news.change_news %}
                     <li class="header">新闻管理</li>
                     <li>
                         <a href="{% url 'cms:news_list' %}">
@@ -119,8 +119,8 @@
                             <span>轮播图</span>
                         </a>
                     </li>
-{#                {% endif %}#}
-{#                {% if perms.course.change_course %}#}
+                {% endif %}
+                {% if perms.course.change_course %}
                     <li class="header">课程管理</li>
                     <li>
                         <a href="{% url 'cms:pub_course' %}">
@@ -128,11 +128,11 @@
                             <span>发布课程</span>
                         </a>
                     </li>
-{#                {% endif %}#}
+                {% endif %}
                 {% if user.is_superuser %}
                     <li class="header">员工管理</li>
                     <li>
-                        <a href="#">
+                        <a href="{% url 'cms:staffs' %}">
                             <i class="fa fa-group"></i>
                             <span>员工管理</span>
                         </a>

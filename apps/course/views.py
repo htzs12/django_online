@@ -51,7 +51,17 @@ def course_order(request,course_id):
     order = CourseOrder.objects.create(course=course,buyer=request.user,status=1,amount=course.price)
     notify_url = request.build_absolute_uri(reverse('course:notify_view'))
     return_url = request.build_absolute_uri(reverse('course:course_detail',kwargs={'course_id':course.id}))
-    return render(request,'course/course_order.html',locals())
+    context = {
+        'goods':{
+            'thumbnail':course.cover_url,
+            'title':course.title,
+            'price':course.price
+        },
+        'order':order,
+        'notify_url':notify_url,
+        'return_url':return_url
+    }
+    return render(request,'course/course_order.html',context=context)
 
 
 @xfz_login_required

@@ -7,6 +7,7 @@ function FrontBase() {
 FrontBase.prototype.run = function () {
     var self = this;
     self.listenAuthBoxHover();
+    self.handleNavStatus();
 };
 
 
@@ -73,6 +74,27 @@ Auth.prototype.hideEvent = function () {
     var self = this;
     self.maskWrapper.hide()
 };
+
+
+// 处理导航栏状态
+FrontBase.prototype.handleNavStatus = function () {
+    var url = window.location.href;
+    var protocol = window.location.protocol; // 协议 http/https
+    var host = window.location.host;
+    var domain = protocol+'//'+host;
+    var path = url.replace(domain,'');
+    var navList = $('.nav li');
+    navList.each(function (index,element) {
+        var li = $(element);// js对象
+        var aTag = li.children('a');
+        var href = aTag.attr('href');
+        if(href===path){
+            li.addClass('active');
+            return false;
+        }
+    });
+};
+
 
 //　实现点击登录注册按钮
 Auth.prototype.listenShowHideEvent = function () {

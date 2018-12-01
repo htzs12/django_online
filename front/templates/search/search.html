@@ -1,77 +1,56 @@
 {% extends 'base/front_base.html' %}
+{% load news_filters %}
 {% load staticfiles %}
 
-{% block title %}搜索{% endblock %}
+{% block title %}
+    搜索
+{% endblock %}
 
 {% block head %}
-
     <link rel="stylesheet" href="{% static 'css/search/search.min.css' %}">
-
 {% endblock %}
 
 {% block main %}
-
     <div class="main">
-    <div class="wrapper">
-        <div class="main-content-wrapper">
-            <div class="search-group">
-                <form action="" method="get">
-                    <input type="text" class="search-input" placeholder="请输入关键字">
-                    <input type="submit" class="search-btn" value="搜索">
-                </form>
+        <div class="wrapper">
+            <div class="main-content-wrapper">
+                <div class="search-group">
+                    <form action="" method="get">
+                        <input type="text" name="q" class="search-input" placeholder="请输入关键字" value="{{ query }}">
+                        <input type="submit" class="search-btn" value="搜索">
+                    </form>
+                </div>
+                <div class="recommend-group">
+                    <p class="recommend-title">热门推荐</p>
+                    <ul class="recommend-list">
+                        {% for result in page.object_list %}
+                            {% with result.object as news %}
+                                <li>
+                                    <div class="thumbnail-group">
+                                        <a href="#">
+                                            <img src="{{ news.thumbnail }}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="news-group">
+                                        <p class="title">
+                                            <a href="#">{{ news.title }}</a>
+                                        </p>
+                                        <p class="desc">
+                                            {{ news.desc }}
+                                        </p>
+                                        <p class="more">
+                                           <span class="category">{{ news.category.name }}</span>
+                                            <span class="pub-time">{{ news.pub_time|time_since }}</span>
+                                            <span class="author">{{ news.author.username }}</span>
+                                        </p>
+                                    </div>
+                                </li>
+                            {% endwith %}
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
-            <div class="recommend-group">
-                <p class="recommend-title">热门推荐</p>
-                <ul class="list-inner-group">
-                    <li>
-                        <div class="thumbnail-group">
-                            <a href="#">
-                                <img src="https://static-image.xfz.cn/1542246847_131.jpeg-website.news.list" alt="">
-                            </a>
-                        </div>
-                        <div class="news-group">
-                            <p class="title">
-                                <a href="#">创业者生存状况调研报告发布， 六成创业公司面临融资难</a>
-                            </p>
-                            <p class="desc">
-                                调研结果显示：74%的创业公司表示受到市场寒冬影响，60%的创业公司遇到融资困难，64%的创业公司在今年没有完成业务目标。
-                            </p>
-                            <p class="more">
-                                <span class="category">深度报道</span>
-                                <span class="pub-time">1小时前</span>
-                                <span class="author">浩哥哥哦</span>
-                            </p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="thumbnail-group">
-                            <a href="#">
-                                <img src="https://static-image.xfz.cn/1542246847_131.jpeg-website.news.list" alt="">
-                            </a>
-                        </div>
-                        <div class="news-group">
-                            <p class="title">
-                                <a href="#">创业者生存状况调研报告发布， 六成创业公司面临融资难</a>
-                            </p>
-                            <p class="desc">
-                                调研结果显示：74%的创业公司表示受到市场寒冬影响，60%的创业公司遇到融资困难，64%的创业公司在今年没有完成业务目标。
-                            </p>
-                            <p class="more">
-                                <span class="category">深度报道</span>
-                                <span class="pub-time">1小时前</span>
-                                <span class="author">浩哥哥哦</span>
-                            </p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+            {% include 'common/sidebar.html' %}
         </div>
-
-        {% include 'common/sidebar.html' %}
-
     </div>
-</div>
-
 {% endblock %}
-
-

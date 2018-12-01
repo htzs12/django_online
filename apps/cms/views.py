@@ -13,6 +13,8 @@ from django.conf import settings
 from datetime import datetime
 from django.utils.timezone import make_aware
 from urllib import parse
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import permission_required
 
 
 @staff_member_required(login_url='index')
@@ -20,6 +22,7 @@ def index(request):
     return render(request,'cms/index.html')
 
 
+@method_decorator(permission_required(perm='news.add_news',login_url='/'),name='dispatch')
 class WriteNewsView(View):
     #  编写新闻
     def get(self,request):
@@ -45,6 +48,7 @@ class WriteNewsView(View):
             return restful.params_error(message=form.get_errors())
 
 
+@permission_required(perm='news.add_newscategory',login_url='/')
 @require_GET
 def news_category(request):
     categories = NewsCategorty.objects.all()
@@ -54,6 +58,7 @@ def news_category(request):
     return render(request,'cms/news_category.html',context=context)
 
 
+@permission_required(perm='news.add_newscategory',login_url='/')
 @require_POST
 def add_news_category(request):
     name = request.POST.get('name')
@@ -65,6 +70,7 @@ def add_news_category(request):
         return restful.params_error(message='该分类已经存在！')
 
 
+@permission_required(perm='news.change_newscategory',login_url='/')
 @require_POST
 def edit_news_category(request):
     #  新闻分类编辑修改
@@ -81,6 +87,7 @@ def edit_news_category(request):
         return restful.params_error(message=form.get_errors())
 
 
+@permission_required(perm='news.delete_newscategory',login_url='/')
 @require_POST
 def delete_news_category(request):
     #  删除新闻分类
@@ -92,6 +99,7 @@ def delete_news_category(request):
         return restful.params_error(message='该分类不存在')
 
 
+@method_decorator(permission_required(perm='news.change_news',login_url='/'),name='dispatch')
 class NewsListView(View):
     def get(self,request):
         page = int(request.GET.get('p', 1))
@@ -176,6 +184,7 @@ class NewsListView(View):
         }
 
 
+@method_decorator(permission_required(perm='news.change_news',login_url='/'),name='dispatch')
 class EditNewsView(View):
     def get(self,request):
         news_id = request.GET.get('news_id')
@@ -200,6 +209,7 @@ class EditNewsView(View):
             return restful.params_error(message=form.get_errors())
 
 
+@permission_required(perm='news.delete_news',login_url='/')
 @require_POST
 def delete_news(request):
     news_id = request.POST.get('news_id')
@@ -207,6 +217,7 @@ def delete_news(request):
     return restful.ok()
 
 
+@staff_member_required(login_url='/')
 @require_POST
 def upload_file(request):
     #  上传文件
@@ -219,16 +230,19 @@ def upload_file(request):
     return restful.result(data={'url':url})
 
 
+@permission_required(perm='news.add_banner',login_url='/')
 def banners(request):
     return render(request,'cms/banners.html')
 
 
+@permission_required(perm='news.add_banner',login_url='/')
 def banner_list(request):
     banners = Banner.objects.all()
     serialize = BannerSerializer(banners,many=True)
     return restful.result(data=serialize.data)
 
 
+@permission_required(perm='news.add_banner',login_url='/')
 def add_banner(request):
     form = AddBannerForm(request.POST)
     if form.is_valid():
@@ -241,12 +255,14 @@ def add_banner(request):
         return restful.params_error(message=form.get_errors())
 
 
+@permission_required(perm='news.delete_banner',login_url='/')
 def delete_banner(request):
     banner_id = request.POST.get('banner_id')
     Banner.objects.filter(id=banner_id).delete()
     return restful.ok()
 
 
+@permission_required(perm='news.change_banner',login_url='/')
 def edit_banner(request):
     form = EditBannerForm(request.POST)
     if form.is_valid():
@@ -260,6 +276,7 @@ def edit_banner(request):
         return restful.params_error(message=form.get_errors())
 
 
+@method_decorator(permission_required(perm='course.change_course',login_url='/'),name='dispatch')
 class PubCourseView(View):
     def get(self,request):
         context = {

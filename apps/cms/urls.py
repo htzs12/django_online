@@ -22,3 +22,12 @@ urlpatterns = [
 
     path('pub_course/',views.PubCourseView.as_view(),name='pub_course'),
 ]
+
+# 员工管理
+
+from . import staff_views
+
+urlpatterns += [
+    path('staffs/',staff_views.staffs_views,name='staffs'),
+    path('add_staffs/',staff_views.AddStaffView.as_view(),name='add_staffs'),
+]
