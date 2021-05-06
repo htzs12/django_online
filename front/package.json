@@ -23,7 +23,7 @@
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
-    "underscore": "^1.9.1"
+    "underscore": "^1.12.1"
   },
   "dependencies": {
     "art-template": "^4.13.2",
