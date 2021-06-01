@@ -62,7 +62,7 @@ sqlparse==0.2.4
 tablib==0.12.1
 traitlets==4.3.2
 unicodecsv==0.14.1
-urllib3==1.22
+urllib3==1.26.5
 wcwidth==0.1.7
 wrapt==1.10.11
 xlrd==1.1.0
